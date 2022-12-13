@@ -1,8 +1,17 @@
 <script setup lang="ts">
-const itemName1 = "Desk";
+import { ref, reactive } from "vue";
+
+// refはプリミティブな値に対して、再レンダリングを行う対象とする
+const itemName1 = ref<string>("Desk");
 const itemName2 = "Bike";
 
-const price1 = 40000;
+// reactiveはオブジェクトなどに対して、再レンダリングを行う対象とする
+const item1 = reactive({
+  name: "Desk",
+  price: 40000,
+});
+
+// const price1 = 40000;
 const price2 = 20000;
 
 const url1 = "https://www.amazon.co.jp/dp/B092HHW4S8";
@@ -10,17 +19,30 @@ const url1 = "https://www.amazon.co.jp/dp/B092HHW4S8";
 const buy = (itemName: string) => {
   alert(`Are you sure to buy ${itemName} ?`);
 };
+
+const input = (event: Event) => {
+  if (!(event.target instanceof HTMLInputElement)) {
+    // event引数がany型だと気持ち悪いので、きちん型付けしておく
+    // https://zenn.dev/koduki/articles/0f8fcbc9a7485b
+    return;
+  }
+
+  item1.name = event.target.value;
+};
 </script>
 
 <template>
   <div class="container">
     <h1>Payment</h1>
+
+    <input v-on:input="input" />
+
     <div class="payment">
       <!-- 商品名 -->
-      <label>{{ itemName1 }}</label>
+      <label>{{ item1.name }}</label>
 
       <!-- 価格 -->
-      <label>{{ price1 }}円</label>
+      <label>{{ item1.price }}円</label>
 
       <!-- 商品のリンク -->
       <a v-bind:href="url1">bought at ...</a>
