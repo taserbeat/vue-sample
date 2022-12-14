@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 
 // refはプリミティブな値に対して、再レンダリングを行う対象とする
 const itemName1 = ref<string>("Desk");
@@ -34,6 +34,15 @@ const clear = () => {
   item1.name = "";
   item1.price = 0;
 };
+
+const budget = 50000;
+
+// computedで計算結果などのメモ化ができる
+const priceLabel = computed(() => {
+  if (item1.price > budget) return "too expensive";
+
+  return `${item1.price}円`;
+});
 </script>
 
 <template>
@@ -45,6 +54,8 @@ const clear = () => {
     <!-- この双方向バインドは次と等価な書き方である -->
     <!-- <input v-on:input="input" v-bind:value="item1.name" /> -->
 
+    <input v-model="item1.price" />
+
     <button v-on:click="clear">Clear</button>
 
     <div class="payment">
@@ -52,7 +63,7 @@ const clear = () => {
       <label>{{ item1.name }}</label>
 
       <!-- 価格 -->
-      <label>{{ item1.price }}円</label>
+      <label>{{ priceLabel }}</label>
 
       <!-- 商品のリンク -->
       <a v-bind:href="url1">bought at ...</a>
