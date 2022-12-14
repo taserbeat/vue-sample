@@ -29,13 +29,23 @@ const input = (event: Event) => {
 
   item1.name = event.target.value;
 };
+
+const clear = () => {
+  item1.name = "";
+  item1.price = 0;
+};
 </script>
 
 <template>
   <div class="container">
     <h1>Payment</h1>
 
-    <input v-on:input="input" />
+    <!-- v-modelは双方向バインドで、"テキスト入力"と"リアクティブ変数の代入"のどちらでも再レンダリングされる -->
+    <input v-model="item1.name" />
+    <!-- この双方向バインドは次と等価な書き方である -->
+    <!-- <input v-on:input="input" v-bind:value="item1.name" /> -->
+
+    <button v-on:click="clear">Clear</button>
 
     <div class="payment">
       <!-- 商品名 -->
