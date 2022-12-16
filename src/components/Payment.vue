@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, watch, toRefs } from "vue";
 
 // refはプリミティブな値に対して、再レンダリングを行う対象とする
 const itemName1 = ref<string>("Desk");
@@ -37,11 +37,21 @@ const clear = () => {
 
 const budget = 50000;
 
-// computedで計算結果などのメモ化ができる
+// computedで計算結果などのメモ化ができる(ReactのuseMemoに相当する)
 const priceLabel = computed(() => {
   if (item1.price > budget) return "too expensive";
 
   return `${item1.price}円`;
+});
+
+// watchでステートの副作用を実装できる(ReactのuseEffectに相当)
+// https://zenn.dev/poteboy/articles/ce47ec05498cfa
+//
+// watchはプリミティブな値に設定可能で、オブジェクトでは使えない。
+// そのためtoRefsを使ってオブジェクトから必要な値をプリミティブとして取り出している。
+const { price } = toRefs(item1);
+watch(price, () => {
+  console.log("watched!");
 });
 </script>
 
