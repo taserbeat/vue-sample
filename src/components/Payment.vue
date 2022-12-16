@@ -20,7 +20,7 @@ const buy = (itemName: string) => {
   alert(`Are you sure to buy ${itemName} ?`);
 };
 
-const input = (event: Event) => {
+const handleInput = (event: Event) => {
   if (!(event.target instanceof HTMLInputElement)) {
     // event引数がany型だと気持ち悪いので、きちん型付けしておく
     // https://zenn.dev/koduki/articles/0f8fcbc9a7485b
@@ -52,7 +52,7 @@ const priceLabel = computed(() => {
     <!-- v-modelは双方向バインドで、"テキスト入力"と"リアクティブ変数の代入"のどちらでも再レンダリングされる -->
     <input v-model="item1.name" />
     <!-- この双方向バインドは次と等価な書き方である -->
-    <!-- <input v-on:input="input" v-bind:value="item1.name" /> -->
+    <!-- <input v-on:input="handleInput" v-bind:value="item1.name" /> -->
 
     <input v-model="item1.price" />
 
