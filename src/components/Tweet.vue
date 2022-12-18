@@ -18,6 +18,10 @@ const postTweet = () => {
 
   inputDescription.value = "";
 };
+
+const deleteTweet = (id: number) => {
+  tweets.value = tweets.value.filter((tweet) => tweet.id !== id);
+};
 </script>
 
 <template>
@@ -26,13 +30,16 @@ const postTweet = () => {
 
     <div class="form-container">
       <input v-model="inputDescription" />
-      <button class="post-button" @click="postTweet">post</button>
+      <button class="post-button" @click="postTweet()">post</button>
     </div>
 
     <div class="tweet-container">
       <ul>
         <li class="tweet-list" v-for="tweet in tweets" :key="tweet.id">
           <span>{{ tweet.description }}</span>
+          <button class="delete-button" @click="deleteTweet(tweet.id)">
+            delete
+          </button>
         </li>
       </ul>
     </div>
@@ -81,6 +88,20 @@ const postTweet = () => {
 
 .post-button:hover {
   background-color: #37bdbd;
+}
+
+.delete-button {
+  color: #fff;
+  font-weight: bold;
+  background-color: #c99a68;
+  border-radius: 2px;
+  border: none;
+  width: 60px;
+  height: 22px;
+}
+
+.delete-button:hover {
+  background-color: #ac783f;
 }
 
 input {
