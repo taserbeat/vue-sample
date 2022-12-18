@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 
 const inputDescription = ref<string>("");
 
-const postTweet = () => {};
+const emit = defineEmits(["post-tweet"]);
+
+const postTweet = () => {
+  if (inputDescription.value === "") {
+    return;
+  }
+
+  // 52. 子コンポーネントから親コンポーネントにイベントを通知する
+  emit("post-tweet", inputDescription.value);
+
+  // post後は入力文字列を空にする
+  inputDescription.value = "";
+};
 </script>
 
 <template>
@@ -37,5 +49,9 @@ const postTweet = () => {};
 
 .post-button:hover {
   background-color: #37bdbd;
+}
+
+input {
+  margin-bottom: 16px;
 }
 </style>

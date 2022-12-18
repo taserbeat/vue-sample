@@ -8,17 +8,13 @@ const tweets = ref([
   { id: 1, description: "This is 2nd tweet!" },
 ]);
 
-const inputDescription = ref<string>("");
-
-const postTweet = () => {
+const postTweet = (description: string) => {
   const tweet = {
     id: tweets.value.length,
-    description: inputDescription.value,
+    description: description,
   };
 
   tweets.value.push(tweet);
-
-  inputDescription.value = "";
 };
 
 const deleteTweet = (id: number) => {
@@ -31,7 +27,8 @@ const deleteTweet = (id: number) => {
     <h1>Tweeter</h1>
 
     <div class="form-container">
-      <TweetPostForm />
+      <!-- 52. 子コンポーネントから親コンポーネントにイベントを通知する -->
+      <TweetPostForm @post-tweet="postTweet" />
     </div>
 
     <div class="tweet-container">
@@ -41,7 +38,7 @@ const deleteTweet = (id: number) => {
       <!-- <p v-show="tweets.length === 0">Tweets does not exist</p> -->
 
       <ul>
-        <TweetList :tweets="tweets" />
+        <TweetList :tweets="tweets" @delete-tweet="deleteTweet" />
       </ul>
     </div>
   </div>
@@ -63,9 +60,5 @@ const deleteTweet = (id: number) => {
   width: 60%;
   margin-bottom: 12px;
   border-radius: 4px;
-}
-
-input {
-  margin-bottom: 16px;
 }
 </style>
