@@ -1,8 +1,23 @@
 <script setup lang="ts">
-const tweets = [
+import { ref } from "vue";
+
+const tweets = ref([
   { id: 0, description: "Hello World!" },
   { id: 1, description: "This is 2nd tweet!" },
-];
+]);
+
+const inputDescription = ref<string>("");
+
+const postTweet = () => {
+  const tweet = {
+    id: tweets.value.length,
+    description: inputDescription.value,
+  };
+
+  tweets.value.push(tweet);
+
+  inputDescription.value = "";
+};
 </script>
 
 <template>
@@ -10,8 +25,8 @@ const tweets = [
     <h1>Tweeter</h1>
 
     <div class="form-container">
-      <input />
-      <button class="save-button">post</button>
+      <input v-model="inputDescription" />
+      <button class="post-button" @click="postTweet">post</button>
     </div>
 
     <div class="tweet-container">
@@ -44,9 +59,17 @@ const tweets = [
 
 .tweet-list {
   list-style: none;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(204, 219, 233);
+  padding: 8px 20px;
+  width: 300px;
 }
 
-button {
+.post-button {
   color: #fff;
   font-weight: bold;
   background-color: #68c9c9;
@@ -56,7 +79,7 @@ button {
   height: 22px;
 }
 
-buton:hover {
+.post-button:hover {
   background-color: #37bdbd;
 }
 
