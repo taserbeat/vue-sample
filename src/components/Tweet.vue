@@ -34,6 +34,11 @@ const deleteTweet = (id: number) => {
     </div>
 
     <div class="tweet-container">
+      <!-- tweetsの要素が0個の場合はメッセージを表示する -->
+      <!-- 条件付きレンダリングは、v-ifまたはv-showというディレクティブを使用する -->
+      <p v-if="tweets.length === 0">Tweets does not exist</p>
+      <!-- <p v-show="tweets.length === 0">Tweets does not exist</p> -->
+
       <ul>
         <li class="tweet-list" v-for="tweet in tweets" :key="tweet.id">
           <span>{{ tweet.description }}</span>
