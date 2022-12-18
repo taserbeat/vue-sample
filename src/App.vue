@@ -2,12 +2,14 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import Payment from "./components/Payment.vue";
+import Tweet from "./components/Tweet.vue";
 </script>
 
 <!-- HTMLの画面要素を記述していく -->
 <template>
   <!-- <HelloWorld msg="Vite + Vue" /> -->
-  <Payment />
+  <!-- <Payment /> -->
+  <Tweet />
 </template>
 
 <!-- templateに対して適用するスタイルを記述する -->
