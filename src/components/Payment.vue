@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch, toRefs } from "vue";
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  toRefs,
+  onBeforeMount,
+  onMounted,
+  onUpdated,
+} from "vue";
 
 // refはプリミティブな値に対して、再レンダリングを行う対象とする
 const itemName1 = ref<string>("Desk");
@@ -52,6 +61,18 @@ const priceLabel = computed(() => {
 const { price } = toRefs(item1);
 watch(price, () => {
   console.log("watched!");
+});
+
+onBeforeMount(() => {
+  console.log("before mount");
+});
+
+onMounted(() => {
+  console.log("mounted");
+});
+
+onUpdated(() => {
+  console.log("updated");
 });
 </script>
 
