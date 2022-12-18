@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import TweetPostForm from "./TweetPostForm.vue";
+import TweetList from "./TweetList.vue";
 
 const tweets = ref([
   { id: 0, description: "Hello World!" },
@@ -29,8 +31,7 @@ const deleteTweet = (id: number) => {
     <h1>Tweeter</h1>
 
     <div class="form-container">
-      <input v-model="inputDescription" />
-      <button class="post-button" @click="postTweet()">post</button>
+      <TweetPostForm />
     </div>
 
     <div class="tweet-container">
@@ -40,12 +41,7 @@ const deleteTweet = (id: number) => {
       <!-- <p v-show="tweets.length === 0">Tweets does not exist</p> -->
 
       <ul>
-        <li class="tweet-list" v-for="tweet in tweets" :key="tweet.id">
-          <span>{{ tweet.description }}</span>
-          <button class="delete-button" @click="deleteTweet(tweet.id)">
-            delete
-          </button>
-        </li>
+        <TweetList :tweets="tweets" />
       </ul>
     </div>
   </div>
@@ -67,46 +63,6 @@ const deleteTweet = (id: number) => {
   width: 60%;
   margin-bottom: 12px;
   border-radius: 4px;
-}
-
-.tweet-list {
-  list-style: none;
-  margin-bottom: 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(204, 219, 233);
-  padding: 8px 20px;
-  width: 300px;
-}
-
-.post-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #68c9c9;
-  border-radius: 2px;
-  border: none;
-  width: 60px;
-  height: 22px;
-}
-
-.post-button:hover {
-  background-color: #37bdbd;
-}
-
-.delete-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #c99a68;
-  border-radius: 2px;
-  border: none;
-  width: 60px;
-  height: 22px;
-}
-
-.delete-button:hover {
-  background-color: #ac783f;
 }
 
 input {
