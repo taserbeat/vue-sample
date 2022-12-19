@@ -9,6 +9,12 @@
 | Node.js | v16.14.0 |
 | Yarn    | 1.22.19  |
 
+# Vite で Vue.js のプロジェクトを構築
+
+```bash
+yarn create vite
+```
+
 # 参考
 
 [公式ドキュメント](https://ja.vuejs.org/)
